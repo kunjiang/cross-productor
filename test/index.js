@@ -1,4 +1,4 @@
-const fns = require('../src/index');
+const fns = require('../index');
 
 let data = [
   [ '白色', '黑色', '红色', '棕色' ],
@@ -13,6 +13,12 @@ let res1 = fns.splitNumByRadix( 0, 16, 4 );
 let start = +new Date;
 let res2 = fns.crossProductor( data );
 let end = +new Date;
+
+let obj1 = {
+  name: 'jim'
+};
+obj1.refObj = obj1;
+let res3 = fns.deepcopy( obj1 );
 
 
 

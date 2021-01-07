@@ -5,56 +5,83 @@ let isUndefined = data => data === undefined;
 
 
 
+
+
+
 /** 
  * 获得 item 的深拷贝对象
  * get deep copy of item 
  */
-function deepcopy( item ) {
-  if ( isValueType( item ) || isNull( item ) || isUndefined( item ) ) return item;
-  let type = Object.prototype.toString.call( item );
-  let _target;
-  switch( type ) {
+function deepcopy( data ) {
+  let _cache = {
+    src: [],
+    cpy: []
+  };
 
-    case '[object Object]': {
-      _target = {};
+  let newItem = _deepcopy( data );
 
-      // loop property of item
-      for( let k in item ) {
-        if ( item.hasOwnProperty( k ) ) {
-          _target[ k ] = deepcopy( item );
-        }
-      }
-    } 
-    break;
+  return newItem;
 
-    case '[object Array]': {
-      _target = [];
 
-      // loop property of item
-      for( let i = 0; i < item.length; i++ ) {
-          _target[ i ] = deepcopy( item );
-      }
-    } 
-    break;
 
-    case '[object RegExp]': {
-      _target = new RegExp(String(item)
-                    .replace( /^\/|\/$/g, '')
-                    .replace( /\\/g, '\\' ), 
-                    item.flags
-                ); 
-    } 
-    break;
-      
-    case '[object Date]': {
-      _target = new Date( item.valueOf() );
+  
+  function _deepcopy( item ) {
+    if ( isValueType( item ) || isNull( item ) || isUndefined( item ) ) return item;
+
+    let _cacheIndex = _cache.src.indexOf( item );
+    if ( _cacheIndex > -1 ) {
+      return _cache.cpy[ _cacheIndex ];
     }
-    break;
+    
+
+    let type = Object.prototype.toString.call( item );
+    let _target;
+    switch( type ) {
+
+      case '[object Object]': {
+        _target = {};
+
+        // loop property of item
+        for( let k in item ) {
+          if ( item.hasOwnProperty( k ) ) {
+            _target[ k ] = _deepcopy( item[ k ] );
+          }
+        }
+      } 
+      break;
+
+      case '[object Array]': {
+        _target = [];
+
+        // loop property of item
+        for( let i = 0; i < item.length; i++ ) {
+            _target[ i ] = _deepcopy( item[ k ] );
+        }
+      } 
+      break;
+
+      case '[object RegExp]': {
+        _target = new RegExp(String(item)
+                      .replace( /^\/|\/$/g, '')
+                      .replace( /\\/g, '\\' ), 
+                      item.flags
+                  ); 
+      } 
+      break;
+        
+      case '[object Date]': {
+        _target = new Date( item.valueOf() );
+      }
+      break;
+    }
+
+    _cache.src.push( item );
+    _cache.cpy.push( _target );
+
+    return _target;
   }
 
-  return _target;
 }
-
 
 /**
  * 按权展开数字
