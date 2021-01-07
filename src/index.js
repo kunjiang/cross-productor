@@ -1,4 +1,60 @@
 
+let isValueType = data => "number boolean string".indexOf(typeof data) > -1;
+let isNull = data => data === null;
+let isUndefined = data => data === undefined;
+
+
+
+/** 
+ * 获得 item 的深拷贝对象
+ * get deep copy of item 
+ */
+function deepcopy( item ) {
+  if ( isValueType( item ) || isNull( item ) || isUndefined( item ) ) return item;
+  let type = Object.prototype.toString.call( item );
+  let _target;
+  switch( type ) {
+
+    case '[object Object]': {
+      _target = {};
+
+      // loop property of item
+      for( let k in item ) {
+        if ( item.hasOwnProperty( k ) ) {
+          _target[ k ] = deepcopy( item );
+        }
+      }
+    } 
+    break;
+
+    case '[object Array]': {
+      _target = [];
+
+      // loop property of item
+      for( let i = 0; i < item.length; i++ ) {
+          _target[ i ] = deepcopy( item );
+      }
+    } 
+    break;
+
+    case '[object RegExp]': {
+      _target = new RegExp(String(item)
+                    .replace( /^\/|\/$/g, '')
+                    .replace( /\\/g, '\\' ), 
+                    item.flags
+                ); 
+    } 
+    break;
+      
+    case '[object Date]': {
+      _target = new Date( item.valueOf() );
+    }
+    break;
+  }
+
+  return _target;
+}
+
 
 /**
  * 按权展开数字
@@ -58,4 +114,5 @@ function crossProductor( list ) {
 module.exports = {
   crossProductor
   , splitNumByRadix
+  , deepcopy
 };

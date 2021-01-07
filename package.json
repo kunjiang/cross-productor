@@ -19,6 +19,7 @@
     "cross",
     "cartesian product"
   ],
+  "homepage": "https://github.com/kunjiang/cross-productor",
   "author": "jk@jklib.org",
   "license": "ISC"
 }
