@@ -13,7 +13,7 @@
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [ "sku", "generate", "cross", "cartesian product" ],
+  "author": "jk@jklib.org",
   "license": "ISC"
 }

@@ -1,7 +1,8 @@
 
 
 /**
- * 将数字按权展开
+ * 按权展开数字
+ * Expand the numbers by radix
  * @param {number} num 
  * @param {number} radix 
  * @param {number} len 
@@ -21,23 +22,24 @@ function splitNumByRadix( num, radix = 10, len ) {
 
 /**
  * 根据给定的数组列表生成组合项的数组.
+ * To give combination of array that item is type array.
  * 
- * @param {Array<Array<any>>} list 需要生成的选项
+ * @param {Array<Array<any>>} list 需要生成的选项 
  */
 function crossProductor( list ) {
   let _res = [];
-  let len = list.length;                                // 长度
-  let p = 0;                                            // 进制
+  let len = list.length;                                // 长度 length
+  let p = 0;                                            // 进制 radix
   let nums = list.map( item => { 
     let _n = item.length - 1;
     if ( p < item.length ) p = item.length;
     return _n;
-  });                                                   // 分量最大数(0-base)
+  });                                                   // 分量最大数(0-base) the max of each components
 
   // 计算十进制上限
-  let supremum = parseInt( nums.join('') - 0, p ) + 1;  // 最大值取不到
+  let supremum = parseInt( nums.join('') - 0, p ) + 1;  // 最大值取不到 not match maximum
 
-  // 循环生成数
+  // 循环生成数 to generate
   for ( let i = 0; i < supremum; i++ ) {
     let numdec = i;
 
