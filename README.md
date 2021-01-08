@@ -20,6 +20,7 @@ let res = crossProductor( data );
 // ]
 ```
 
+如果数组中的数组是对象, 默认生成时使用浅拷贝, 如果需要深拷贝, 可以传入第二个参数.
 
 
 
@@ -45,3 +46,6 @@ let res = crossProductor( data );
 //   [ 'black', 37 ], [ 'black', 38 ], [ 'black', 39 ], [ 'black', 40 ], [ 'black', 41 ], [ 'black', 42 ], 
 // ]
 ```
+
+Default, use shallow copy to generate, if the item of two-dimensional array is object.
+But, you can pass `true` to the second parameter in function `crossProductor`, it will use deep copy.
