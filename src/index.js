@@ -12,74 +12,53 @@ let isUndefined = data => data === undefined;
  * 获得 item 的深拷贝对象
  * get deep copy of item 
  */
-function deepcopy( data ) {
-  let _cache = {
-    src: [],
-    cpy: []
-  };
-
-  let newItem = _deepcopy( data );
-
-  return newItem;
-
-
-
+function deepcopy( item ) {
+  if ( isValueType( item ) || isNull( item ) || isUndefined( item ) ) return item;
   
-  function _deepcopy( item ) {
-    if ( isValueType( item ) || isNull( item ) || isUndefined( item ) ) return item;
 
-    let _cacheIndex = _cache.src.indexOf( item );
-    if ( _cacheIndex > -1 ) {
-      return _cache.cpy[ _cacheIndex ];
-    }
-    
+  let type = Object.prototype.toString.call( item );
+  let _target;
+  switch( type ) {
 
-    let type = Object.prototype.toString.call( item );
-    let _target;
-    switch( type ) {
+    case '[object Object]': {
+      _target = {};
 
-      case '[object Object]': {
-        _target = {};
-
-        // loop property of item
-        for( let k in item ) {
-          if ( item.hasOwnProperty( k ) ) {
-            _target[ k ] = _deepcopy( item[ k ] );
-          }
+      // loop property of item
+      for( let k in item ) {
+        if ( item.hasOwnProperty( k ) ) {
+          _target[ k ] = deepcopy( item[ k ] );
         }
-      } 
-      break;
-
-      case '[object Array]': {
-        _target = [];
-
-        // loop property of item
-        for( let i = 0; i < item.length; i++ ) {
-            _target[ i ] = _deepcopy( item[ k ] );
-        }
-      } 
-      break;
-
-      case '[object RegExp]': {
-        _target = new RegExp(String(item)
-                      .replace( /^\/|\/$/g, '')
-                      .replace( /\\/g, '\\' ), 
-                      item.flags
-                  ); 
-      } 
-      break;
-        
-      case '[object Date]': {
-        _target = new Date( item.valueOf() );
       }
-      break;
+    } 
+    break;
+
+    case '[object Array]': {
+      _target = [];
+
+      // loop property of item
+      for( let i = 0; i < item.length; i++ ) {
+          _target[ i ] = deepcopy( item[ k ] );
+      }
+    } 
+    break;
+
+    case '[object RegExp]': {
+      _target = new RegExp(String(item)
+                    .replace( /^\/|\/$/g, '')
+                    .replace( /\\/g, '\\' ), 
+                    item.flags
+                ); 
+    } 
+    break;
+      
+    case '[object Date]': {
+      _target = new Date( item.valueOf() );
     }
-
-    _cache.src.push( item );
-    _cache.cpy.push( _target );
-
-    return _target;
+    break;
   }
+
+
+  return _target;
 
 }
 
@@ -108,8 +87,9 @@ function splitNumByRadix( num, radix = 10, len ) {
  * To give combination of array that item is type array.
  * 
  * @param {Array<Array<any>>} list 需要生成的选项 
+ * @param {boolean} deep 成员若是对象是否需要深拷贝, 默认不需要 need deep clone, default is shallow copy
  */
-function crossProductor( list ) {
+function crossProductor( list, deep = false ) {
   let _res = [];
   let len = list.length;                                // 长度 length
   let p = 0;                                            // 进制 radix
@@ -128,7 +108,7 @@ function crossProductor( list ) {
 
     let _proj = splitNumByRadix( numdec, p, len );
     if ( _proj.every( (proj, j) => proj <= nums[ j ] ) ) {
-      _res.push( _proj.map( (proj, j) => list[ j ][ proj ] ) );
+      _res.push( _proj.map( (proj, j) => deep ? deepcopy( list[ j ][ proj ] ) : list[ j ][ proj ] ) );
     }
   }
 

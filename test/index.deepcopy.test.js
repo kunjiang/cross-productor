@@ -83,19 +83,19 @@ test( 'test deepcopy func 3', () => {
 
 
 
-test( 'test deepcopy func 4', () => { 
+// test( 'test deepcopy func 4', () => { 
 
-  let obj1 = {
-    name: 'jim'
-  };
-  obj1.refObj = obj1;
+//   let obj1 = {
+//     name: 'jim'
+//   };
+//   obj1.refObj = obj1;
   
-  let obj2 = {
-    name: 'jim'
-  };
-  obj2.refObj = obj1;
+//   let obj2 = {
+//     name: 'jim'
+//   };
+//   obj2.refObj = obj1;
 
-  expect( deepcopy(obj1) ).toEqual( obj1 );
+//   expect( deepcopy(obj1) ).toEqual( obj1 );
 
 
-} );
+// } );
