@@ -37,3 +37,33 @@ test( '测试 crossProductor 方法3', () => {
   ] );
 
 } );
+
+
+test( '测试 crossProductor 方法4', () => {
+  let data = [
+    [ 1, 2, 3 ],
+    [ 1 ]
+  ];
+  let res2 = crossProductor( data );
+  expect(res2).toEqual( [ [ 1, 1 ], [ 2, 1 ], [ 3, 1 ] ] );
+
+} );
+
+
+test( '测试 crossProductor 方法5', () => {
+  let data = [
+    [ 1, 2, 3 ]
+  ];
+  let res2 = crossProductor( data );
+  expect(res2).toEqual( [ [ 1 ], [ 2 ], [ 3 ] ] );
+
+} );
+
+
+test( '测试 crossProductor 方法6', () => {
+  let data = [
+  ];
+  let res2 = crossProductor( data );
+  expect(res2).toEqual( [  ] );
+
+} );

@@ -20,7 +20,28 @@ let res = crossProductor( data );
 // ]
 ```
 
-如果数组中的数组是对象, 默认生成时使用浅拷贝, 如果需要深拷贝, 可以传入第二个参数.
+如果数组中的数组是对象, 默认生成时使用浅拷贝, 如果需要深拷贝, 可以传入第二个参数. 例如:
+
+```js
+let res = crossProductor( data, true ); // 对每一个成员进行深拷贝
+```
+
+如果仅有一个集合, 则生成以元素为集合的集合, 即
+
+```js
+const { crossProductor } = require( 'cross-productor' );
+
+let data = [
+  [ '白色', '黑色' ]
+];
+
+let res = crossProductor( data );
+// => 
+// [ 
+//   [ '白色' ], 
+//   [ '黑色' ], 
+// ]
+```
 
 
 
@@ -48,4 +69,25 @@ let res = crossProductor( data );
 ```
 
 Default, use shallow copy to generate, if the item of two-dimensional array is object.
-But, you can pass `true` to the second parameter in function `crossProductor`, it will use deep copy.
+But, you can pass `true` to the second parameter in function `crossProductor`, it will use deep copy. For example:
+
+```js
+let res = crossProductor( data, true ); // will use deep copy for element of set
+```
+
+However, just only one set, it will make a set that element is a set. like: 
+
+```js
+const { crossProductor } = require( 'cross-productor' );
+
+let data = [
+  [ 'white', 'black' ]
+];
+
+let res = crossProductor( data );
+// => 
+// [ 
+//   [ 'white' ], 
+//   [ 'black' ], 
+// ]
+```
