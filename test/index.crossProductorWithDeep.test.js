@@ -68,3 +68,15 @@ test( '测试 crossProductor 方法 5', () => {
   ] );
 
 } );
+
+
+test( '测试 crossProductor 方法 6', () => {
+
+  let data = [
+    [ { color: '白色' } ],
+    [ { size: 37 } ]
+  ];
+  let res1 = crossProductor( data, true );
+  expect(res1).toEqual( [ [ { color: '白色' }, { size: 37 } ] ] );
+
+} );

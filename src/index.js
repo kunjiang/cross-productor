@@ -102,6 +102,10 @@ function crossProductor( list, deep = false ) {
   // 计算十进制上限
   let supremum = parseInt( nums.join('') - 0, p ) + 1;  // 最大值取不到 not match maximum
 
+  // 输入的 list 如果是 1 x 1 的矩阵 ( [ [ 1 ], [ 2 ] ] ), 会导致
+  // 在计算 parseInt( 0, 1 ) 时会得到 NaN
+  if ( supremum != supremum ) supremum = 1;
+
   // 循环生成数 to generate
   for ( let i = 0; i < supremum; i++ ) {
     let numdec = i;
