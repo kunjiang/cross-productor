@@ -82,6 +82,23 @@ function splitNumByRadix( num, radix = 10, len ) {
 }
 
 
+
+/**
+ * 将 10 进制位表示的数组形式的数字, 按照 权 转换为 十进制数
+ * parseInt 方法权取值上限为 36
+ * 
+ * @param {number[]} nums 
+ * @param {number} radix 
+ */
+function parseIntExt(nums, radix = 10) {
+  let numdec = 0;
+  for (let i = 0; i < nums.length; i++) {
+    numdec = (numdec * radix) + (nums[i] - 0);
+  }
+  return numdec;
+}
+
+
 /**
  * 根据给定的数组列表生成组合项的数组.
  * To give combination of array that item is type array.
@@ -100,7 +117,8 @@ function crossProductor( list, deep = false ) {
   });                                                   // 分量最大数(0-base) the max of each components
 
   // 计算十进制上限
-  let supremum = parseInt( nums.join('') - 0, p ) + 1;  // 最大值取不到 not match maximum
+  // let supremum = parseInt( nums.join('') - 0, p ) + 1;  // 最大值取不到 not match maximum
+  let supremum = parseIntExt( nums, p ) + 1;
 
   // 输入的 list 如果是 1 x 1 的矩阵 ( [ [ 1 ], [ 2 ] ] ), 会导致
   // 在计算 parseInt( 0, 1 ) 时会得到 NaN
@@ -126,4 +144,5 @@ module.exports = {
   crossProductor
   , splitNumByRadix
   , deepcopy
+  , parseIntExt
 };
