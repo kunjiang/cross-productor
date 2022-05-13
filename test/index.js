@@ -21,21 +21,34 @@ const fns = require('../index');
 // ];
 
 
-let data = [
-  [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
-    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 
-    31, 32, 33, 34, 35, 36, 37
-  ],
-  [ 1 ]
-];
+// let data = [
+//   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+//     11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+//     21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 
+//     31, 32, 33, 34, 35, 36, 37
+//   ],
+//   [ 1 ]
+// ];
 
 
 
-let res1 = fns.crossProductor( data );
+// let res1 = fns.crossProductor( data );
 // let res2 = fns.crossProductor( data.map(Object.entries) );
 
 
-console.log(res1);
+// console.log(res1);
 // console.log(res2);
 
+
+
+
+let numSrc = 0;
+let base = 1;
+let len = 4;
+
+let _nums = fns.splitNumByRadix( numSrc, base, len );
+let res = fns.parseIntExt(_nums, base);
+
+
+
+console.log(_nums);
